@@ -1,0 +1,4 @@
+{
+  "interactive-linter.javascript": ["eslint"],
+  "interactive-linter.jsx": ["eslint"]
+}
