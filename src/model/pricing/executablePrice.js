@@ -1,21 +1,11 @@
-﻿module Babylon {
-    import IStale = Rx.IStale;
+export default class ExecutablePrice {
+    constructor(direction, rate, executionRepository) {
+        this._executionRepository = executionRepository;
+        this.direction = direction;
+        this.rate = rate;
+    }
 
-    export class ExecutablePrice implements IExecutablePrice {
-        private _executionRepository:IExecutionRepository;
-
-        constructor(direction:Direction, rate:number, executionRepository:IExecutionRepository) {
-            this._executionRepository = executionRepository;
-            this.direction = direction;
-            this.rate = rate;
-        }
-
-        execute(notional: number, dealtCurrency: string): Rx.Observable<IStale<ITrade>> {
-            return this._executionRepository.executeRequest(this, notional, dealtCurrency);
-        }
-
-        direction:Direction;
-        rate:number;
-        parent:IPrice;
+    execute(notional, dealtCurrency) {
+        return this._executionRepository.executeRequest(this, notional, dealtCurrency);
     }
 }

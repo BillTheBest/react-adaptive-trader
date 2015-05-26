@@ -1,7 +1,6 @@
-﻿module Babylon {
-    export enum TradeStatus
-    {
-        Done,
-        Rejected
-    }
-}
+const TradeStatus = Object.freeze(
+  {
+    Done: Symbol('Done'), 
+    Rejected: Symbol('Rejected')
+  });
+export default TradeStatus;

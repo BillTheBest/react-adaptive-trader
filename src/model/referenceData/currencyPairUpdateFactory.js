@@ -1,23 +1,24 @@
-﻿module Babylon {
-    export class CurrencyPairUpdateFactory implements ICurrencyPairUpdateFactory {
-        private _priceRepository:IPriceRepository;
+import CurrencyPair from './currencyPair.js';
+import CurrencyPairUpdate from './currencyPairUpdate';
+import UpdateType from '../updateType.js';
 
-        constructor(priceRepository:IPriceRepository) {
-            this._priceRepository = priceRepository;
-        }
+export default class CurrencyPairUpdateFactory {
 
-        create(currencyPairUpdate:CurrencyPairUpdateDto):ICurrencyPairUpdate {
-            var cp = new CurrencyPair(
-                currencyPairUpdate.currencyPair.symbol,
-                currencyPairUpdate.currencyPair.ratePrecision,
-                currencyPairUpdate.currencyPair.pipsPosition,
-                this._priceRepository);
+  constructor(priceRepository:IPriceRepository) {
+      this._priceRepository = priceRepository;
+  }
 
-            var update = new CurrencyPairUpdate(
-                    currencyPairUpdate.updateType == UpdateTypeDto.ADDED ? UpdateType.Add : UpdateType.Remove,
-                <ICurrencyPair>cp);
+  create(currencyPairUpdate) {
+      var cp = new CurrencyPair(
+          currencyPairUpdate.currencyPair.symbol,
+          currencyPairUpdate.currencyPair.ratePrecision,
+          currencyPairUpdate.currencyPair.pipsPosition,
+          this._priceRepository);
 
-            return update;
-        }
-    }
+      throw('TODO import updateTypeDto');
+      var updateType = currencyPairUpdate.updateType == UpdateTypeDto.ADDED ? UpdateType.Add : UpdateType.Remove; 
+      var update = new CurrencyPairUpdate(updateType, cp);
+
+      return update;
+  }
 }

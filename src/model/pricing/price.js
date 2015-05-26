@@ -1,38 +1,16 @@
-﻿module Babylon {
-    export class Price implements IPrice {
+export default class Price  {
 
-        constructor(bid:ExecutablePrice, ask:ExecutablePrice, valueDate:Date, currencyPair:ICurrencyPair) {
+  constructor(bid, ask, valueDate, currencyPair) {
+    this.bid = bid;
+    this.ask = ask;
+    this.valueDate = valueDate;
+    this.currencyPair = currencyPair;
+    this.isStale = false;
 
-            this.bid = bid;
-            this.ask = ask;
-            this.valueDate = valueDate;
-            this.currencyPair = currencyPair;
-            this.isStale = false;
+    bid.parent = this;
+    ask.parent = this;
 
-            bid.parent = this;
-            ask.parent = this;
-
-            this.spread = (ask.rate - bid.rate) * Math.pow(10, currencyPair.pipsPosition);
-        }
-
-        bid:IExecutablePrice;
-        ask:IExecutablePrice;
-        currencyPair:ICurrencyPair;
-        valueDate:Date;
-        spread:number;
-        isStale:boolean;
-
-        get mid():number {
-            return (this.bid.rate + this.ask.rate) / 2;
-        }
-
-        // IPriceLatency implementation
-
-        private _receivedTimestamp:number;
-        private _renderTimestamp:number;
-
-        get uiProcessingTimeMs() {
-            return this._renderTimestamp - this._receivedTimestamp;
-        }
-    }
+    this.spread = (ask.rate - bid.rate) * Math.pow(10, currencyPair.pipsPosition);
+    this.mid = (this.bid.rate + this.ask.rate) / 2;
+  }
 }
