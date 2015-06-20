@@ -1,13 +1,13 @@
 import Rx from 'rx';
 
-export class TradeRepository  {
+export default class TradeRepository {
 
     constructor(blotterServiceClient, tradeFactory) {
         this._tradeFactory = tradeFactory;
         this._blotterServiceClient = blotterServiceClient;
     }
 
-    public getTradesStream() {
+    getTradesStream() {
         return Rx.Observable.defer(()=> this._blotterServiceClient.getTradesStream())
             .select(trades=> this._createTrades(trades))
             .catch(()=> Rx.Observable.return([]))
@@ -16,7 +16,7 @@ export class TradeRepository  {
             .refCount();
     }
 
-    _createTrades(trades:ITradeDto[]):ITrade[] {
+    _createTrades(trades) {
         var result = [];
 
         for (var i = 0; i < trades.length; i++) {
@@ -26,6 +26,3 @@ export class TradeRepository  {
         return result;
     }
 }
-
-var repo = new TradeRepository();
-export default repo;

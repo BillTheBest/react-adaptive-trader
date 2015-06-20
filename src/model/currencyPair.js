@@ -1,7 +1,7 @@
 import Rx from 'rx';
 import AmpersandState from 'ampersand-state';
 import isProduction from 'services/isProduction.js';
-import priceService from 'services/priceService.js';
+//import priceService from 'services/priceService.js';
 
 let extraProperties = 'reject';
 if (isProduction()) {
@@ -25,12 +25,12 @@ export default AmpersandState.extend({
     counterCurrency: {
       deps: ['symbol'],
       fn: () => this.symbol.substring(3, 6)
-    },
+    }//,
 
-    prices: () => {
-      return Rx.Observable.defer(()=> priceService.getPriceStream(this))
-              .publish()
-              .refCount();
-    }
+    // prices: () => {
+    //   return Rx.Observable.defer(()=> priceService.getPriceStream(this))
+    //           .publish()
+    //           .refCount();
+    // }
   }
 });

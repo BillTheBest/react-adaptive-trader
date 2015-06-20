@@ -9,7 +9,7 @@ if (isProduction()){
 export default AmpersandState.extend({
   extraProperties: extraProperties,
   props: {
-    symbol: { type: 'state', required: true },
+    currencyPair: { type: 'state', required: true },
     updateType: { type: 'string', required: true, values: ['add', 'remove'] }
   }
 });
