@@ -1,3 +1,5 @@
+/*eslint-env node */
+var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require('webpack');
 var dependencies = require('./getVendorDependencies.js');
@@ -10,8 +12,8 @@ copyDirs.forEach(function (dir) {
   fs.writeFileSync(dir + '/index.html', fs.readFileSync('./src/index.html'), {flag: 'w+'});
 });
 
-var env = process.env.NODE_ENV || 'development'
-var isProduction = env.trim().toUpperCase() === 'PRODUCTION'
+var env = process.env.NODE_ENV || 'development';
+var isProduction = env.trim().toUpperCase() === 'PRODUCTION';
 var isDevelopment = !isProduction;
 
 console.log('Running in ' + env);
@@ -73,7 +75,7 @@ var plugins = [
   new ExtractTextPlugin('styles.css'),
   new webpack.NoErrorsPlugin(),
   new webpack.DefinePlugin({ 'process.env.NODE_ENV': envPluginString })
- ]
+];
 
 module.exports = {
   entry: {
@@ -86,8 +88,9 @@ module.exports = {
   },
   resolve: {
     alias: {
-      services: __dirname + '/src/services',
-      common: __dirname + '/src/common',
+      services: path.join(__dirname, '/src/services'),
+      common: path.join(__dirname, '/src/common'),
+      model: path.join(__dirname, '/src/model'),
       react$: 'react/addons'
     }
   },
