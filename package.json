@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/bundle.js",
   "scripts": {
-    "dev": "webpack-dev-server --progress --colors --hot --debug --devtool inline-source-map",
+    "dev": "webpack-dev-server --progress --colors --hot --debug --devtool cheap-module-source-map",
     "prod": "SET NODE_ENV=production webpack-dev-server --progress --colors --hot -p",
     "build:dev": "webpack --debug --devtool inline-source-map",
     "build:prod": "SET NODE_ENV=production && webpack -p",
@@ -48,7 +48,8 @@
     "cuid": "^1.2.4",
     "domready": "^0.3.0",
     "jquery": "^1.11.3",
-    "lodash": "^3.8.0",
+    "lodash": "^3.9.3",
+    "ms-signalr-client": "^2.2.2",
     "react": "^0.13.2",
     "react-bootstrap": "^0.21.2",
     "rx": "^2.5.2"

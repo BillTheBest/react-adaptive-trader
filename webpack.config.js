@@ -69,7 +69,9 @@ var envPluginString = isProduction ? '"production"' : '"development"';
 
 var plugins = [
   new webpack.ProvidePlugin({
-      jQuery: 'jquery'
+    $: 'jquery',
+    jQuery: 'jquery',
+    'window.jQuery': 'jquery'
   }),
   new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */'vendor.bundle.js'),
   new ExtractTextPlugin('styles.css'),
@@ -90,6 +92,7 @@ module.exports = {
     alias: {
       services: path.join(__dirname, '/src/services'),
       common: path.join(__dirname, '/src/common'),
+      components: path.join(__dirname, '/src/components'),
       model: path.join(__dirname, '/src/model'),
       react$: 'react/addons'
     }
