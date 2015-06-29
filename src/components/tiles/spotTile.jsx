@@ -6,6 +6,8 @@ import { priceService } from 'services/index.js'
 import PricingTile from './states/pricingTile.jsx'
 import StaleTile from './states/staleTile.jsx'
 
+import './spotTile.less'
+
 export default class SpotTile extends React.Component {
   constructor(props) {
     super(props)

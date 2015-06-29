@@ -29,9 +29,9 @@ export default class SpotTiles extends React.Component {
   render() {
     return (
       <div style={{overflow: 'auto'}}>
-        <ul style={{listStyle: 'none'}}>
+        <ul style={{listStyle: 'none', padding: 0}}>
           {this.state.currencyPairs.map(c => (
-            <li style={{padding: '0 15px 12px 15px'}} key={c.symbol}><SpotTile ccyPair={c} /></li>)
+            <li className='spot-tile' key={c.symbol}><SpotTile ccyPair={c} /></li>)
           )}
         </ul>
       </div>
