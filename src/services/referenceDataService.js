@@ -1,9 +1,9 @@
-import CurrencyPair from 'model/currencyPair.js';
-import CurrencyPairUpdate from 'model/currencyPairUpdate.js';
+import CurrencyPair from 'model/currencyPair.js'
+import CurrencyPairUpdate from 'model/currencyPairUpdate.js'
 
 export default class ReferenceDataService {
   constructor(referenceDataServiceClient) {
-    this._referenceDataServiceClient = referenceDataServiceClient;
+    this._referenceDataServiceClient = referenceDataServiceClient
   }
 
   /**
@@ -18,9 +18,9 @@ export default class ReferenceDataService {
           var ccyPairUpdate = new CurrencyPairUpdate({
             currencyPair: new CurrencyPair(u.currencyPair),
             updateType: u.updateType
-          });
-          return ccyPairUpdate;
-        });
-      });
+          })
+          return ccyPairUpdate
+        })
+      })
   }
 }

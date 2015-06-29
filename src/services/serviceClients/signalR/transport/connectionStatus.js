@@ -6,4 +6,4 @@ export default {
   Reconnected: 'Reconnected',
   Closed: 'Closed',
   Uninitialized: 'Uninitialized'
-};
+}

@@ -1,10 +1,10 @@
-import Trade from './trade.js';
-import TradeStatus from './tradeStatus.js';
-import Direction from '../direction.js';
+import Trade from './trade.js'
+import TradeStatus from './tradeStatus.js'
+import Direction from '../direction.js'
 
 export default class TradeFactory {
     create(trade) {
-      throw('TODO import DTO');
+      throw('TODO import DTO')
         return new Trade(
             trade.currencyPair,
                 trade.direction == DirectionDto.BUY ? Direction.Buy : Direction.Sell,
@@ -15,6 +15,6 @@ export default class TradeFactory {
             trade.tradeId,
             trade.traderName,
             trade.valueDate,
-            trade.dealtCurrency);
+            trade.dealtCurrency)
     }
 }

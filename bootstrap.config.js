@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 // ## bootstrap-webpack Configuration
 
 module.exports = {
@@ -68,4 +68,4 @@ module.exports = {
     'utilities': true,
     'responsive-utilities': true
   }
-};
+}

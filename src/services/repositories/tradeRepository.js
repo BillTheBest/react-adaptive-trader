@@ -1,10 +1,10 @@
-import Rx from 'rx';
+import Rx from 'rx'
 
 export default class TradeRepository {
 
     constructor(blotterServiceClient, tradeFactory) {
-        this._tradeFactory = tradeFactory;
-        this._blotterServiceClient = blotterServiceClient;
+        this._tradeFactory = tradeFactory
+        this._blotterServiceClient = blotterServiceClient
     }
 
     getTradesStream() {
@@ -13,16 +13,16 @@ export default class TradeRepository {
             .catch(()=> Rx.Observable.return([]))
             .repeat()
             .publish()
-            .refCount();
+            .refCount()
     }
 
     _createTrades(trades) {
-        var result = [];
+        var result = []
 
-        for (var i = 0; i < trades.length; i++) {
-            result[i] = this._tradeFactory.create(trades[i]);
+        for (var i = 0 i < trades.length i++) {
+            result[i] = this._tradeFactory.create(trades[i])
         }
 
-        return result;
+        return result
     }
 }

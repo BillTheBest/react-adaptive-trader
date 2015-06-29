@@ -1,9 +1,9 @@
-import AmpersandState from 'ampersand-state';
-import isProduction from 'services/isProduction.js';
+import AmpersandState from 'ampersand-state'
+import isProduction from 'services/isProduction.js'
 
-let extraProperties = 'reject';
+let extraProperties = 'reject'
 if (isProduction()){
-  extraProperties = 'ignore';
+  extraProperties = 'ignore'
 }
 
 export default AmpersandState.extend({
@@ -12,4 +12,4 @@ export default AmpersandState.extend({
     currencyPair: { type: 'state', required: true },
     updateType: { type: 'string', required: true, values: ['add', 'remove'] }
   }
-});
+})

@@ -4,6 +4,6 @@ export default class Shell extends React.Component {
             <SpotTiles />
             <Blotter />
             <Analytics />
-        </div>);
+        </div>)
   }
 }

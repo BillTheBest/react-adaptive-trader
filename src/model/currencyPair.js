@@ -1,11 +1,11 @@
-import Rx from 'rx';
-import AmpersandState from 'ampersand-state';
-import isProduction from 'services/isProduction.js';
-//import priceService from 'services/priceService.js';
+import Rx from 'rx'
+import AmpersandState from 'ampersand-state'
+import isProduction from 'services/isProduction.js'
+//import priceService from 'services/priceService.js'
 
-let extraProperties = 'reject';
+let extraProperties = 'reject'
 if (isProduction()) {
-  extraProperties = 'ignore';
+  extraProperties = 'ignore'
 }
 
 export default AmpersandState.extend({
@@ -30,7 +30,7 @@ export default AmpersandState.extend({
     // prices: () => {
     //   return Rx.Observable.defer(()=> priceService.getPriceStream(this))
     //           .publish()
-    //           .refCount();
+    //           .refCount()
     // }
   }
-});
+})
