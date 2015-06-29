@@ -1,3 +1,4 @@
+import Rx from 'rx'
 import React from 'react'
 
 export default class Analytics extends React.Component {
@@ -6,6 +7,15 @@ export default class Analytics extends React.Component {
     this.state = {
       isLoading: true
     }
+  }
+
+  componentDidMount() {
+    Rx.Observable.returnValue({}).delay(200)
+      .subscribe(() =>{
+        this.setState({isLoading: false})
+        this.props.loaded()
+        console.log('Analytics loaded')
+      })
   }
 
   render() {

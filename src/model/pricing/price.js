@@ -1,16 +1,20 @@
-export default class Price  {
+import AmpersandState from 'ampersand-state'
+import extraProperties from 'services/extraProperties.js'
 
-  constructor(bid, ask, valueDate, currencyPair) {
-    this.bid = bid
-    this.ask = ask
-    this.valueDate = valueDate
-    this.currencyPair = currencyPair
-    this.isStale = false
+export default AmpersandState.extend({
+  extraProperties: extraProperties(),
+  props: {
+    bid: { type: 'number', required: true },
+    ask: { type: 'number', required: true },
+    mid: { type: 'number', required: true},
+    valueDate: { type: 'date', required: true },
+    currencyPair: { type: 'object', required: true }
+  },
 
-    bid.parent = this
-    ask.parent = this
-
-    this.spread = (ask.rate - bid.rate) * Math.pow(10, currencyPair.pipsPosition)
-    this.mid = (this.bid.rate + this.ask.rate) / 2
+  derived: {
+    spread: {
+      deps: ['bid', 'ask', 'currencyPair'],
+      fn: () => (this.ask.rate - this.bid.rate) * Math.pow(10, this.currencyPair.pipsPosition)
+    }
   }
-}
+})

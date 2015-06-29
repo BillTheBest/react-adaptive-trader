@@ -4,6 +4,9 @@ import React from 'react'
 import domready from 'domready'
 import Main from './main.jsx'
 
+import RxExtensions from './helpers/rxExtensions.js'
+RxExtensions.register()
+
 domready(function () {
   var container = document.createElement('div')
   container.class = 'container'

@@ -1,6 +1,7 @@
 'use strict'
 
 import React from 'react'
+import SpotTile from './spotTile.jsx'
 import { referenceDataService } from 'services/index.js'
 
 export default class SpotTiles extends React.Component {
@@ -28,7 +29,9 @@ export default class SpotTiles extends React.Component {
   render() {
     return (
       <div>
-        {this.state.currencyPairs.map(c => <div>{c.symbol}</div>)}
+        {this.state.currencyPairs.map(c => (
+          <div key={c.symbol}><SpotTile ccyPair={c} /></div>)
+        )}
       </div>
     )
   }

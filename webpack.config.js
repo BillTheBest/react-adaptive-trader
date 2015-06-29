@@ -94,6 +94,7 @@ module.exports = {
       common: path.join(__dirname, '/src/common'),
       components: path.join(__dirname, '/src/components'),
       model: path.join(__dirname, '/src/model'),
+      helpers: path.join(__dirname, '/src/helpers'),
       lib: path.join(__dirname, '/lib'),
       react$: 'react/addons'
     }

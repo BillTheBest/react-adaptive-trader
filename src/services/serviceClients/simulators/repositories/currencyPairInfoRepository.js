@@ -36,7 +36,10 @@ export default class CurrencyPairInfoRepository {
         symbol: symbol
       },
       sampleRate: sampleRate,
-      enable: enabled
+      enable: enabled,
+
+      _halfSpread: Math.round(Math.random() * 10),
+      _pow: Math.pow(10, ratePrecision)
     }
 
     this._ccyPairs.push(currencyPairInfo)
@@ -47,6 +50,8 @@ export default class CurrencyPairInfoRepository {
   }
 
   getCurrencyPair(currencyPairSymbol) {
-      return _.find(this.getAllCurrencyPairs(), ccyPair => ccyPair.currencyPair.Symbol === currencyPairSymbol)
+      return _.find(
+        this._ccyPairs,
+        ccyPair => ccyPair.currencyPair.symbol === currencyPairSymbol)
   }
 }

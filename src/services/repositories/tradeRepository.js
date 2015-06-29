@@ -19,7 +19,7 @@ export default class TradeRepository {
     _createTrades(trades) {
         var result = []
 
-        for (var i = 0 i < trades.length i++) {
+        for (var i = 0; i < trades.length; i++) {
             result[i] = this._tradeFactory.create(trades[i])
         }
 

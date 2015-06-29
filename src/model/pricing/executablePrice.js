@@ -1,11 +1,14 @@
-export default class ExecutablePrice {
-    constructor(direction, rate, executionRepository) {
-        this._executionRepository = executionRepository
-        this.direction = direction
-        this.rate = rate
-    }
+import AmpersandState from 'ampersand-state'
+import extraProperties from 'services/extraProperties.js'
 
-    execute(notional, dealtCurrency) {
-        return this._executionRepository.executeRequest(this, notional, dealtCurrency)
-    }
-}
+export default AmpersandState.extend({
+  extraProperties: extraProperties(),
+  props: {
+    direction: { type: 'string', required: true, values: ['bid', 'ask'] },
+    rate: { type: 'number', required: true }
+  }//,
+
+  // execute: (notional, dealtCurrency) => {
+  //   return executionRepository.executeRequest(this, notional, dealtCurrency)
+  // }
+})
