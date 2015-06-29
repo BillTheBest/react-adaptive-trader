@@ -3,13 +3,23 @@
 import React from 'react'
 import { priceService } from 'services/index.js'
 
+import PricingTile from './states/pricingTile.jsx'
+import StaleTile from './states/staleTile.jsx'
+
 export default class SpotTile extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      price: null
+      price: null,
+      isStale: false
     };
+
+    this.executeTrade = this.executeTrade.bind(this)
+  }
+
+  executeTrade(direction, rate, valueDate) {
+
   }
 
   componentDidMount() {
@@ -19,21 +29,23 @@ export default class SpotTile extends React.Component {
     //   .getPriceStream()
     //
     prices.subscribe(p => {
-      this.setState({price: p})
+      if (p.isStale){
+        this.setState({price: null, isStale: true})
+      } else{
+        this.setState({price: p.update, isStale: false})
+      }
     })
   }
 
   render() {
-    let prices;
-    if (this.state.price){
-      prices = <div>{this.state.price.bid} | {this.state.price.ask}</div>
+    if (this.state.isStale) {
+      return <StaleTile />
     }
-    return (
-      <div>
-        {this.props.ccyPair.symbol}<br />
-        {prices}
-      </div>
-    )
+
+    // todo should ccypair be context?
+    return <PricingTile onExecute={this.executeTrade}
+                        ccyPair={this.props.ccyPair}
+                        price={this.state.price} />
   }
 }
 

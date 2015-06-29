@@ -1,5 +1,5 @@
 import Rx from 'rx'
-import StalePrice from 'model/pricing/stalePrice.js'
+import Stale from 'model/stale.js'
 import Price from 'model/pricing/price.js'
 
 export default class PriceService {
@@ -9,19 +9,17 @@ export default class PriceService {
 
   getPriceStream(currencyPair) {
     return Rx.Observable.defer(()=> this._pricingServiceClient.getPriceStream(currencyPair.symbol))
+      .select(p => new Price(p))
       .catch(ex => {
         console.error('Error thrown in stream ' + currencyPair.symbol, ex)
         // if the stream errors (server disconnected), we push a stale price
         return Rx.Observable
-          .return(new StalePrice(currencyPair))
+          .return(new Stale(true))
           // terminate the observable in 3sec so the repeat does not kick-off immediatly
-          .concat(Rx.Observable.timer(3000, Rx.Scheduler.timeout).ignoreElements().select(() => new StalePrice(currencyPair)))
+          .concat(Rx.Observable.timer(3000, Rx.Scheduler.timeout).ignoreElements().select(() => new Stale(true)))
       })
       .repeat()
       .detectStale(4000, Rx.Scheduler.timeout)
-      .select(s => {
-        return s.isStale ? new StalePrice(currencyPair) : new Price(s.update)
-      })
       .publish()
       .refCount()
   }

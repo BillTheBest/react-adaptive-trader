@@ -1,25 +1,23 @@
 import Rx from 'rx'
+import Trade from 'model/execution/trade.js'
 
 export class ExecutionRepository {
+  constructor(executionServiceClient) {
+      this._executionServiceClient = executionServiceClient
+  }
 
-    constructor(executionServiceClient, tradeFactory) {
-        this._tradeFactory = tradeFactory
-        this._executionServiceClient = executionServiceClient
+  executeRequest(ccyPairSymbol, ccyIsoCode, direction, spotRate, valueDate, notional) {
+    var request = {
+      direction: direction,
+      notional: notional,
+      spotRate: spotRate,
+      currencyPair: ccyPairSymbol,
+      dealtCurrency: ccyIsoCode,
+      valueDate: valueDate.toISOString()
     }
 
-    executeRequest(executablePrice, notional, dealtCurrency) {
-        var price = executablePrice.parent
-
-        var request = new ExecuteTradeRequestDto()
-        request.direction = executablePrice.direction == Direction.Buy ? DirectionDto.BUY : DirectionDto.SELL
-        request.notional = notional
-        request.spotRate = executablePrice.rate
-        request.currencyPair = price.currencyPair.symbol
-        request.valueDate = price.valueDate.toISOString()
-        request.dealtCurrency = dealtCurrency
-
-        return this._executionServiceClient.executeTrade(request)
-            .select(response => this._tradeFactory.create(response.trade))
-            .detectStale(2000, Rx.Scheduler.timeout)
-    }
+    return this._executionServiceClient.executeTrade(request)
+        .select(response => new Trade(response.trade))
+        .detectStale(2000, Rx.Scheduler.timeout)
+  }
 }

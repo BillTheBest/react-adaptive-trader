@@ -1,13 +1,8 @@
 import AmpersandState from 'ampersand-state'
-import isProduction from 'services/isProduction.js'
-
-let extraProperties = 'reject'
-if (isProduction()){
-  extraProperties = 'ignore'
-}
+import extraProperties from 'services/extraProperties.js'
 
 export default AmpersandState.extend({
-  extraProperties: extraProperties,
+  extraProperties: extraProperties(),
   props: {
     currencyPair: { type: 'state', required: true },
     updateType: { type: 'string', required: true, values: ['add', 'remove'] }
