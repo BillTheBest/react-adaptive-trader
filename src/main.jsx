@@ -4,6 +4,8 @@ import React from 'react'
 import WaitingOverlay from 'components/common/waitingOverlay.jsx'
 import { Layout } from 'lib/react-flex-layout.min.js'
 
+import './main.less'
+
 import Analytics from 'components/analytics/analytics.jsx'
 import Tiles from 'components/tiles/spotTiles.jsx'
 import Blotter from 'components/blotter/blotter.jsx'
@@ -31,7 +33,7 @@ export default class Main extends React.Component {
     }
     return (
       <div>
-        <Layout fill='window'>
+        <Layout className='reactive-trader-main' fill='window'>
           <Layout layoutWidth='flex'>
             <Layout layoutHeight='flex'>
               <Tiles loaded={() => this.setState({isTilesLoading: false})} />

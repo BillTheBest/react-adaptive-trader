@@ -1,5 +1,5 @@
 import 'normalize.css'
-import './app.css'
+import './app.less'
 import React from 'react'
 import domready from 'domready'
 import Main from './main.jsx'

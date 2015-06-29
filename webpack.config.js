@@ -19,8 +19,6 @@ var isDevelopment = !isProduction
 console.log('Running in ' + env)
 
 var entryPoints = [
-  ExtractTextPlugin.extract('style', 'css!less!bootstrap-webpack/bootstrap-styles!./bootstrap.config.js'),
-  'bootstrap-webpack/bootstrap-scripts!./bootstrap.config.js',
   './src/app.jsx'
 ]
 if(isDevelopment) {
