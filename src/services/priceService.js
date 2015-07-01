@@ -1,6 +1,7 @@
 import Rx from 'rx'
 import Stale from 'model/stale.js'
 import Price from 'model/pricing/price.js'
+import _ from 'lodash'
 
 export default class PriceService {
   constructor(pricingServiceClient) {
@@ -9,7 +10,11 @@ export default class PriceService {
 
   getPriceStream(currencyPair) {
     return Rx.Observable.defer(()=> this._pricingServiceClient.getPriceStream(currencyPair.symbol))
-      .select(p => new Price(p))
+      .select(p => {
+        var dto = _.extend(p, { currencyPair: currencyPair })
+        var price = new Price(dto)
+        return price
+      })
       .catch(ex => {
         console.error('Error thrown in stream ' + currencyPair.symbol, ex)
         // if the stream errors (server disconnected), we push a stale price

@@ -17,7 +17,16 @@ function getFormattedPrice(rate, precision, pipsPosition) {
       tenthOfPips = rateAsString.substring(dotIndex + pipsPosition + 1, rateAsString.length)
   }
 
-  return { bigFigures: bigFigures, pips: pips, tenthOfPips };
+  return { bigFigures: bigFigures, pips: pips, tenthOfPips }
 }
 
-export default { getFormattedPrice }
+function getFormattedSpread(spread, precision, pipsPosition) {
+  var delta = precision - pipsPosition;
+  if (delta > 0)
+  {
+    return spread.toFixed(delta)
+  }
+  return spread.toString()
+}
+
+export default { getFormattedPrice, getFormattedSpread }

@@ -4,6 +4,9 @@ import React from 'react'
 import domready from 'domready'
 import Main from './main.jsx'
 
+import Rx from 'rx'
+Rx.config.longStackSupport = true
+
 import RxExtensions from './helpers/rxExtensions.js'
 RxExtensions.register()
 

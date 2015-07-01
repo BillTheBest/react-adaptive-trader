@@ -6,6 +6,8 @@ export default class StaleTile extends React.Component {
   }
 
   render() {
-    return <div>Price stale</div>
+    return (
+      <div>Price stale</div>
+    )
   }
 }

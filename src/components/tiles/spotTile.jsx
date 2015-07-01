@@ -15,7 +15,7 @@ export default class SpotTile extends React.Component {
     this.state = {
       price: null,
       isStale: false
-    };
+    }
 
     this.executeTrade = this.executeTrade.bind(this)
   }
@@ -40,14 +40,22 @@ export default class SpotTile extends React.Component {
   }
 
   render() {
+    var content
+
     if (this.state.isStale) {
-      return <StaleTile />
+      content = <StaleTile />
+    } else {
+      // todo should ccypair be context?
+      content = <PricingTile onExecute={this.executeTrade}
+                             ccyPair={this.props.ccyPair}
+                             price={this.state.price} />
     }
 
-    // todo should ccypair be context?
-    return <PricingTile onExecute={this.executeTrade}
-                        ccyPair={this.props.ccyPair}
-                        price={this.state.price} />
+    return (
+      <div style={{height: '100%', width: '100%' }}>
+        {content}
+      </div>
+    )
   }
 }
 

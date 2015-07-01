@@ -8,8 +8,8 @@ export default class OneWayPrice extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.props.direction.toUpperCase()}
+      <div className='one-way-price'>
+        <div>{this.props.direction.toUpperCase()}</div>
         <span className='secondary-foreground' style={{fontSize: '18px'}}>{this.props.formattedPrice.bigFigures}</span>
         <span className="primary-foreground pips">{this.props.formattedPrice.pips}</span>
         <span className="secondary-foreground" style={{fontSize: '18px'}}>{this.props.formattedPrice.tenthOfPips}</span>
