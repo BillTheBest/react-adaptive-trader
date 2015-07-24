@@ -1,14 +1,21 @@
 import React from 'react'
 import './oneWayPrice.less'
+import classnames from 'classnames'
 
 export default class OneWayPrice extends React.Component {
   constructor(props) {
     super(props)
+    this.clicked = this.clicked.bind(this)
+  }
+
+  clicked() {
+    this.props.onExecute()
   }
 
   render() {
+    var classes = classnames('one-way-price', { 'one-way-price-enabled': this.props.enabled !== false })
     return (
-      <div className='one-way-price'>
+      <div className={classes} onClick={this.clicked}>
         <div>{this.props.direction.toUpperCase()}</div>
         <span className='secondary-foreground' style={{fontSize: '18px'}}>{this.props.formattedPrice.bigFigures}</span>
         <span className="primary-foreground pips">{this.props.formattedPrice.pips}</span>
@@ -20,5 +27,7 @@ export default class OneWayPrice extends React.Component {
 
 OneWayPrice.propTypes = {
   direction: React.PropTypes.string.isRequired,
-  formattedPrice: React.PropTypes.object.isRequired
+  formattedPrice: React.PropTypes.object.isRequired,
+  onExecute: React.PropTypes.func.isRequired,
+  enabled: React.PropTypes.bool
 }

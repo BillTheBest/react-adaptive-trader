@@ -8,7 +8,7 @@ export default AmpersandState.extend({
     direction: { type: 'string', required: true, values: ['bid', 'ask'] },
     notional: { type: 'number', required: true },
     spotRate: { type: 'number', required: true },
-    tradeStatus: { type: 'string', required: true, values: [ 'done', 'rejected'] },
+    tradeStatus: { type: 'string', required: true, values: [ 'done', 'rejected', 'notionalOvershot'] },
     tradeDate: { type: 'date', required: true },
     tradeId: { type: 'string', required: true },
     traderName: { type: 'string', required: true },

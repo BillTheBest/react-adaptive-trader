@@ -26,7 +26,7 @@ export default class PricingTile extends React.Component {
   }
 
   execute(direction, rate) {
-    return this.props.onExecute(direction, rate, this.props.price.valueDate)
+    return this.props.onExecute(direction, rate, this.props.price)
   }
 
   render() {
@@ -37,22 +37,29 @@ export default class PricingTile extends React.Component {
         <div>
           <OneWayPrice direction='sell'
                        formattedPrice={this.props.price.formattedBid}
-                       onExecute={() => this.execute('sell', this.props.price.bid)}>
+                       onExecute={() => this.execute('sell', this.props.price.bid)}
+                       enabled={!this.props.isExecuting}>
           </OneWayPrice>
           <DirectionIndicator direction={this.state.movementDirection}
                               formattedSpread={this.props.price.formattedSpread}></DirectionIndicator>
           <OneWayPrice direction='buy'
                        formattedPrice={this.props.price.formattedAsk}
-                       onExecute={() => this.execute('buy', this.props.price.ask)}>
+                       onExecute={() => this.execute('buy', this.props.price.ask)}
+                       enabled={!this.props.isExecuting}>
           </OneWayPrice>
         </div>
       )
     } else {
       prices = <span>Pricing is currently unavailable</span>
     }
+
+    var executing = this.props.isExecuting ? <div style={{float:'right'}}>EXECUTING</div> : null
     return (
       <div>
-        {this.props.ccyPair.symbol}
+        <div>
+          <div style={{display: 'inline-block'}}>{this.props.ccyPair.symbol}</div>
+          {executing}
+        </div>
         {prices}
       </div>
     )
@@ -61,5 +68,6 @@ export default class PricingTile extends React.Component {
 
 PricingTile.propTypes = {
   ccyPair: React.PropTypes.object.isRequired,
-  price: React.PropTypes.object
+  price: React.PropTypes.object,
+  isExecuting: React.PropTypes.bool
 }

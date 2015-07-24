@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import { priceService } from 'services/index.js'
+import { priceService, executionService } from 'services/index.js'
 
 import PricingTile from './states/pricingTile.jsx'
 import StaleTile from './states/staleTile.jsx'
@@ -14,13 +14,33 @@ export default class SpotTile extends React.Component {
 
     this.state = {
       price: null,
-      isStale: false
+      isStale: false,
+      executingPrice: null,
+      notional: 1000000
     }
 
     this.executeTrade = this.executeTrade.bind(this)
+    this.handleExecuteResult = this.handleExecuteResult.bind(this)
+    this.executionFailed = this.executionFailed
   }
 
-  executeTrade(direction, rate, valueDate) {
+  executeTrade(direction, rate, price) {
+    this.setState({executingPrice: price})
+    executionService
+      .executeRequest(
+        this.props.ccyPair.symbol,
+        this.props.ccyPair.baseCurrency,
+        direction, rate, price.valueDate,
+        this.state.notional
+      )
+      .subscribe(this.handleExecuteResult, this.executionFailed)
+  }
+
+  handleExecuteResult() {
+
+  }
+
+  executionFailed() {
 
   }
 
@@ -42,7 +62,12 @@ export default class SpotTile extends React.Component {
   render() {
     var content
 
-    if (this.state.isStale) {
+    if (this.state.executingPrice) {
+      content = <PricingTile onExecute={this.executeTrade}
+                             ccyPair={this.props.ccyPair}
+                             price={this.state.executingPrice}
+                             isExecuting={true} />
+    } else if (this.state.isStale) {
       content = <StaleTile />
     } else {
       // todo should ccypair be context?
