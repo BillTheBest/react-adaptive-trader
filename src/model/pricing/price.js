@@ -1,16 +1,55 @@
-export default class Price  {
+import AmpersandState from 'ampersand-state'
+import extraProperties from 'services/extraProperties.js'
+import PriceFormatter from 'helpers/priceFormatter.js'
 
-  constructor(bid, ask, valueDate, currencyPair) {
-    this.bid = bid;
-    this.ask = ask;
-    this.valueDate = valueDate;
-    this.currencyPair = currencyPair;
-    this.isStale = false;
+export default AmpersandState.extend({
+  extraProperties: extraProperties(),
+  props: {
+    bid: { type: 'number', required: true },
+    ask: { type: 'number', required: true },
+    mid: { type: 'number', required: true},
+    valueDate: { type: 'date', required: true },
+    currencyPair: { required: true }
+  },
 
-    bid.parent = this;
-    ask.parent = this;
+  derived: {
+    spread: {
+      deps: ['bid', 'ask', 'currencyPair'],
+      fn: function() {
+        var ask = this.ask
+        var bid = this.bid
+        return (ask - bid) * Math.pow(10, this.currencyPair.pipsPosition)
+      }
+    },
 
-    this.spread = (ask.rate - bid.rate) * Math.pow(10, currencyPair.pipsPosition);
-    this.mid = (this.bid.rate + this.ask.rate) / 2;
+    formattedBid: {
+      deps: ['bid'],
+      fn: function() {
+        var precision = this.currencyPair.ratePrecision
+        var pipsPos = this.currencyPair.pipsPosition
+        var formatted = PriceFormatter.getFormattedPrice(this.bid, precision, pipsPos)
+        return formatted
+      }
+    },
+
+    formattedAsk: {
+      deps: ['ask'],
+      fn: function() {
+        var precision = this.currencyPair.ratePrecision
+        var pipsPos = this.currencyPair.pipsPosition
+        var formatted = PriceFormatter.getFormattedPrice(this.ask, precision, pipsPos)
+        return formatted
+      }
+    },
+
+    formattedSpread: {
+      deps: ['spread'],
+      fn: function() {
+        var precision = this.currencyPair.ratePrecision
+        var pipsPos = this.currencyPair.pipsPosition
+        var spread = PriceFormatter.getFormattedSpread(this.spread, precision, pipsPos)
+        return spread
+      }
+    }
   }
-}
+})
