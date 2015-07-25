@@ -5,6 +5,7 @@ import { priceService, executionService } from 'services/index.js'
 
 import PricingTile from './states/pricingTile.jsx'
 import StaleTile from './states/staleTile.jsx'
+import ErrorTile from './states/errorTile.jsx'
 
 import './spotTile.less'
 
@@ -16,12 +17,13 @@ export default class SpotTile extends React.Component {
       price: null,
       isStale: false,
       executingPrice: null,
+      executeTradeResult: null,
       notional: 1000000
     }
 
     this.executeTrade = this.executeTrade.bind(this)
     this.handleExecuteResult = this.handleExecuteResult.bind(this)
-    this.executionFailed = this.executionFailed
+    this.executionFailed = this.executionFailed.bind(this)
   }
 
   executeTrade(direction, rate, price) {
@@ -36,12 +38,13 @@ export default class SpotTile extends React.Component {
       .subscribe(this.handleExecuteResult, this.executionFailed)
   }
 
-  handleExecuteResult() {
-
+  handleExecuteResult(executeResult) {
+    this.setState({executeTradeResult: executeResult, executingPrice: null})
   }
 
-  executionFailed() {
-
+  executionFailed(ex) {
+    console.log(ex)
+    this.setState({executeTradeFailure: 'Unknown error', executingPrice: null})
   }
 
   componentDidMount() {
@@ -67,7 +70,11 @@ export default class SpotTile extends React.Component {
                              ccyPair={this.props.ccyPair}
                              price={this.state.executingPrice}
                              isExecuting={true} />
-    } else if (this.state.isStale) {
+     } else if (this.state.executeTradeFailure) {
+       content = <ErrorTile errorMessage={this.state.executeTradeFailure} />
+     } else if (this.state.executeTradeResult) {
+       content = <AffirmationTile tradeDetails={this.state.executeTradeResult} />
+     } else if (this.state.isStale) {
       content = <StaleTile />
     } else {
       // todo should ccypair be context?

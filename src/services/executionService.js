@@ -22,11 +22,14 @@ export default class ExecutionService {
       .checkLimit(request)
       .flatMap(limitCheckResult => {
         if (limitCheckResult) {
-          return this._executionServiceClient.executeTrade(request)
-            .select(response => new Trade(response.trade))
+          return this._executionServiceClient
+            .executeRequest(request)
+            .select(response => {
+              console.log('executed', response.trade)
+              return new Trade(response.trade)
+            })
             .detectStale(2000, Rx.Scheduler.timeout)
-        }
-        else {
+        } else {
           var trade = new Trade({
             currencyPair: ccyPairSymbol,
             dealtCurrency: ccyIsoCode,
