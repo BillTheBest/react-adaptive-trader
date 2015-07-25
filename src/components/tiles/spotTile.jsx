@@ -6,6 +6,7 @@ import { priceService, executionService } from 'services/index.js'
 import PricingTile from './states/pricingTile.jsx'
 import StaleTile from './states/staleTile.jsx'
 import ErrorTile from './states/errorTile.jsx'
+import AffirmationTile from './states/affirmationTile.jsx'
 
 import './spotTile.less'
 
@@ -24,6 +25,7 @@ export default class SpotTile extends React.Component {
     this.executeTrade = this.executeTrade.bind(this)
     this.handleExecuteResult = this.handleExecuteResult.bind(this)
     this.executionFailed = this.executionFailed.bind(this)
+    this.clearAffirmation = this.clearAffirmation.bind(this)
   }
 
   executeTrade(direction, rate, price) {
@@ -45,6 +47,10 @@ export default class SpotTile extends React.Component {
   executionFailed(ex) {
     console.log(ex)
     this.setState({executeTradeFailure: 'Unknown error', executingPrice: null})
+  }
+
+  clearAffirmation() {
+    this.setState({executeTradeResult: null})
   }
 
   componentDidMount() {
@@ -73,7 +79,12 @@ export default class SpotTile extends React.Component {
      } else if (this.state.executeTradeFailure) {
        content = <ErrorTile errorMessage={this.state.executeTradeFailure} />
      } else if (this.state.executeTradeResult) {
-       content = <AffirmationTile tradeDetails={this.state.executeTradeResult} />
+       if (this.state.executeTradeResult.isStale) {
+         content = <ErrorTile errorMessage='Execution timed out, call to confirm trade' />
+       } else{
+         content = <AffirmationTile tradeDetails={this.state.executeTradeResult.update}
+                                    done={this.clearAffirmation}/>
+       }
      } else if (this.state.isStale) {
       content = <StaleTile />
     } else {

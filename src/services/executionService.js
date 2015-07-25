@@ -17,6 +17,7 @@ export default class ExecutionService {
       dealtCurrency: ccyIsoCode,
       valueDate: valueDate.toISOString()
     }
+    console.log('executing', request)
 
     return this._limitCheckerService
       .checkLimit(request)
@@ -24,9 +25,9 @@ export default class ExecutionService {
         if (limitCheckResult) {
           return this._executionServiceClient
             .executeRequest(request)
-            .select(response => {
-              console.log('executed', response.trade)
-              return new Trade(response.trade)
+            .select(tradeDto => {
+              console.log('executed', tradeDto)
+              return new Trade(tradeDto)
             })
             .detectStale(2000, Rx.Scheduler.timeout)
         } else {

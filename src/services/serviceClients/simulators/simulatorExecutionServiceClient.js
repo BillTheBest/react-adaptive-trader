@@ -12,13 +12,13 @@ export default class ExecutionServiceClient {
     var valueDate = new Date(tradeDate.getTime() + twoDaysMillis)
 
     var tradeDto = {
-      tradeId: this._tradeId++,
-      currencyPairSymbol: tradeRequest.symbol,
+      tradeId: (this._tradeId++).toString(),
+      currencyPair: tradeRequest.currencyPair,
       dealtCurrency: tradeRequest.dealtCurrency,
       direction: tradeRequest.direction,
       notional: tradeRequest.notional,
       spotRate: tradeRequest.spotRate,
-      status: 'done',
+      tradeStatus: 'done',
       tradeDate: tradeDate.toDateString(),
       traderName: 'Joe Trader',
       valueDate: valueDate.toDateString()
