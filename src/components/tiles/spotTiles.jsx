@@ -17,7 +17,7 @@ export default class SpotTiles extends React.Component {
     referenceDataService.getCurrencyPairUpdatesStream()
       .subscribe(u => {
         this.props.loaded()
-        console.log('Spot tiles loaded');
+        console.log('Spot tiles loaded')
 
         this.setState({
           isLoading: false,

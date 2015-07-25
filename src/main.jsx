@@ -33,17 +33,17 @@ export default class Main extends React.Component {
     }
     return (
       <div>
-        <Layout className='reactive-trader-main' fill='window'>
-          <Layout layoutWidth='flex'>
-            <Layout layoutHeight='flex'>
+        <Layout fill='window'>
+          <Layout layoutHeight='flex'>
+            <Layout layoutWidth='flex' className='reactive-trader-main' >
               <Tiles loaded={() => this.setState({isTilesLoading: false})} />
             </Layout>
-            <Layout layoutHeight={100}>
-              <Blotter loaded={() => this.setState({isBlotterLoading: false})} />
+            <Layout layoutWidth={200}>
+              <Analytics loaded={() => this.setState({isAnalyticsLoading: false})} />
             </Layout>
           </Layout>
-          <Layout layoutWidth={200}>
-            <Analytics loaded={() => this.setState({isAnalyticsLoading: false})} />
+          <Layout layoutHeight={230}>
+            <Blotter loaded={() => this.setState({isBlotterLoading: false})} />
           </Layout>
         </Layout>
         {waitingOverlay}
