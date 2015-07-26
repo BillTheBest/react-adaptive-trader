@@ -1,15 +1,15 @@
-import React from 'react';
-import Bootstrap from 'react-bootstrap';
+import React from 'react'
+import Bootstrap from 'react-bootstrap'
 import classNames from 'classnames'
 
 export default class CommandButton extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   render() {
-    var visibility = this.props.isBusy ? {} : {className: 'hide'};
-    var result = classNames(visibility, 'glyphicon glyphicon-refresh'); 
+    var visibility = this.props.isBusy ? {} : {className: 'hide'}
+    var result = classNames(visibility, 'glyphicon glyphicon-refresh') 
     return (
       <Bootstrap.Button
         bsStyle='primary'
@@ -18,7 +18,7 @@ export default class CommandButton extends React.Component {
         {this.props.children}
         <span className={result} style={{marginLeft: '5px'}}
       </Bootstrap.Button>
-    );
+    )
   }
 }
 CommandButton.propTypes = {
@@ -26,8 +26,8 @@ CommandButton.propTypes = {
   canExecute: React.PropTypes.bool,
   execute: React.PropTypes.func,
   isBusy: React.PropTypes.bool
-};
+}
 CommandButton.defaultProps = {
   isBusy: false,
   canExecute: false
-};
+}
