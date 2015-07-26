@@ -14,12 +14,16 @@ var CurrencyPair = AmpersandState.extend({
   derived: {
     baseCurrency: {
       deps: ['symbol'],
-      fn: () => this.symbol.substring(0, 3)
+      fn: function() {
+        return this.symbol.substring(0, 3)
+      }
     },
 
     counterCurrency: {
       deps: ['symbol'],
-      fn: () => this.symbol.substring(3, 6)
+      fn: function() {
+        this.symbol.substring(3, 6)
+      }
     },
 
     getPriceStream: function() {
@@ -28,4 +32,4 @@ var CurrencyPair = AmpersandState.extend({
   }
 })
 
-export default CurrencyPair;
+export default CurrencyPair

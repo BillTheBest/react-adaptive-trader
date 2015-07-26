@@ -9,7 +9,7 @@ export default class DirectionIndicator extends React.Component {
   render() {
     var direction = this.props.direction
     var up = direction === 'up' ? <div className="arrow-up"></div> : null
-    var down = direction === 'down' ? <div className="down-up"></div> : null
+    var down = direction === 'down' ? <div className="arrow-down"></div> : null
     return (
       <div className='direction-indicator'>
         <div style={{height: '30%'}}>{up}</div>
