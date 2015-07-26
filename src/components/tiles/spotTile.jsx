@@ -1,5 +1,6 @@
 'use strict'
 
+import Rx from 'rx'
 import React from 'react'
 import { priceService, executionService } from 'services/index.js'
 
@@ -26,11 +27,13 @@ export default class SpotTile extends React.Component {
     this.handleExecuteResult = this.handleExecuteResult.bind(this)
     this.executionFailed = this.executionFailed.bind(this)
     this.clearAffirmation = this.clearAffirmation.bind(this)
+    this._pricesSubscription = new Rx.SingleAssignmentDisposable()
+    this._executionSubscription = new Rx.SerialDisposable()
   }
 
   executeTrade(direction, rate, price) {
     this.setState({executingPrice: price})
-    executionService
+    var executionSubscription = executionService
       .executeRequest(
         this.props.ccyPair.symbol,
         this.props.ccyPair.baseCurrency,
@@ -38,6 +41,7 @@ export default class SpotTile extends React.Component {
         this.state.notional
       )
       .subscribe(this.handleExecuteResult, this.executionFailed)
+    this._executionSubscription.setDisposable(executionSubscription)
   }
 
   handleExecuteResult(executeResult) {
@@ -59,13 +63,18 @@ export default class SpotTile extends React.Component {
     // var prices = this.props.ccyPair
     //   .getPriceStream()
     //
-    prices.subscribe(p => {
+    this._pricesSubscription.setDisposable(prices.subscribe(p => {
       if (p.isStale){
         this.setState({price: null, isStale: true})
       } else{
         this.setState({price: p.update, isStale: false})
       }
-    })
+    }))
+  }
+
+  componentWillUnmount() {
+    this._executionSubscription.dispose()
+    this._pricesSubscription.dispose()
   }
 
   render() {

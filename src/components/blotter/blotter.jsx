@@ -1,3 +1,4 @@
+import Rx from 'rx'
 import React from 'react'
 import './blotter.less'
 import { blotterService } from 'services/index.js'
@@ -9,19 +10,33 @@ export default class Blotter extends React.Component {
       isLoading: true,
       trades: []
     }
-    this.tradesReceived = this.tradesReceived.bind(this)
+
+    this._blotterStream = new Rx.SingleAssignmentDisposable()
   }
 
   componentDidMount() {
-    blotterService
+    let loadedStream = blotterService
       .getTradesStream()
-      .subscribe(this.tradesReceived)
+      .take(1)
+      .subscribe(trades => {
+        this.setState({isLoading: false, trades: trades})
+        this.props.loaded()
+      })
+
+    let tradesStream = blotterService
+      .getTradesStream()
+      .skip(1)
+      .subscribe(trades => {
+        this.setState({ trades: trades.concat(this.state.trades)})
+      })
+
+    this._blotterStream.setDisposable(
+      new Rx.CompositeDisposable(loadedStream, tradesStream)
+    )
   }
 
-  tradesReceived(trades) {
-    var newTrades = trades.concat(this.state.trades)
-    this.setState({isLoading: false, trades: newTrades})
-    this.props.loaded()
+  componentWillUnmount() {
+    this._blotterStream.dispose()
   }
 
   render() {
