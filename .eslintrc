@@ -12,7 +12,7 @@
     "react"
   ],
   "rules": {
-    "semi": [2, "never"],
+    "semi": [2, "always"],
     "global-strict": 0,
     "quotes": [2, "single"],
     "key-spacing": 0,

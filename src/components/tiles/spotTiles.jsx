@@ -1,29 +1,29 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import SpotTile from './spotTile.jsx'
-import { referenceDataService } from 'services/index.js'
+import React from 'react';
+import SpotTile from './spotTile.jsx';
+import { referenceDataService } from 'services/index.js';
 
 export default class SpotTiles extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       isLoading: true,
       currencyPairs: []
-    }
+    };
   }
 
   componentDidMount() {
     referenceDataService.getCurrencyPairUpdatesStream()
       .subscribe(u => {
-        this.props.loaded()
-        console.log('Spot tiles loaded')
+        this.props.loaded();
+        console.log('Spot tiles loaded');
 
         this.setState({
           isLoading: false,
           currencyPairs: u.map(c => c.currencyPair)
-        })
-      })
+        });
+      });
   }
 
   render() {
@@ -35,10 +35,10 @@ export default class SpotTiles extends React.Component {
           )}
         </ul>
       </div>
-    )
+    );
   }
 }
 
 SpotTiles.propTypes = {
   loaded: React.PropTypes.func.isRequired
-}
+};

@@ -1,7 +1,7 @@
-import Rx from 'rx'
-import AmpersandState from 'ampersand-state'
-import extraProperties from 'services/extraProperties.js'
-import { priceService } from 'services/index.js'
+import Rx from 'rx';
+import AmpersandState from 'ampersand-state';
+import extraProperties from 'services/extraProperties.js';
+import { priceService } from 'services/index.js';
 
 var CurrencyPair = AmpersandState.extend({
   extraProperties: extraProperties(),
@@ -15,21 +15,21 @@ var CurrencyPair = AmpersandState.extend({
     baseCurrency: {
       deps: ['symbol'],
       fn: function() {
-        return this.symbol.substring(0, 3)
+        return this.symbol.substring(0, 3);
       }
     },
 
     counterCurrency: {
       deps: ['symbol'],
       fn: function() {
-        this.symbol.substring(3, 6)
+        this.symbol.substring(3, 6);
       }
     },
 
     getPriceStream: function() {
-      return Rx.Observable.defer(()=> priceService.getPriceStream(this))
+      return Rx.Observable.defer(()=> priceService.getPriceStream(this));
     }
   }
-})
+});
 
-export default CurrencyPair
+export default CurrencyPair;

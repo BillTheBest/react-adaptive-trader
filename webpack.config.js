@@ -1,28 +1,28 @@
 /*eslint-env node */
-var path = require('path')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var webpack = require('webpack')
-var dependencies = require('./getVendorDependencies.js')
-var fs = require('fs')
+var path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var webpack = require('webpack');
+var dependencies = require('./getVendorDependencies.js');
+var fs = require('fs');
 
 // Copy index to served folder.
-var copyDirs = ['./dev-server', './dist']
+var copyDirs = ['./dev-server', './dist'];
 copyDirs.forEach(function (dir) {
-  if(!fs.existsSync(dir)) { fs.mkdirSync(dir) }
-  fs.writeFileSync(dir + '/index.html', fs.readFileSync('./src/index.html'), {flag: 'w+'})
-})
+  if(!fs.existsSync(dir)) { fs.mkdirSync(dir); }
+  fs.writeFileSync(dir + '/index.html', fs.readFileSync('./src/index.html'), {flag: 'w+'});
+});
 
-var env = process.env.NODE_ENV || 'development'
-var isProduction = env.trim().toUpperCase() === 'PRODUCTION'
-var isDevelopment = !isProduction
+var env = process.env.NODE_ENV || 'development';
+var isProduction = env.trim().toUpperCase() === 'PRODUCTION';
+var isDevelopment = !isProduction;
 
-console.log('Running in ' + env)
+console.log('Running in ' + env);
 
 var entryPoints = [
   './src/app.jsx'
-]
+];
 if(isDevelopment) {
-  entryPoints.push('webpack/hot/dev-server?http://localhost:8080')
+  entryPoints.push('webpack/hot/dev-server?http://localhost:8080');
 }
 
 var loaders = [
@@ -47,23 +47,23 @@ var loaders = [
     test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
     loader: 'file-loader'
  }
-]
+];
 
 if(isProduction) {
   loaders.push({
     test: /\.jsx$/,
     exclude: /node_modules/,
     loaders: ['babel-loader?optional=runtime']
-  })
+  });
 } else {
   loaders.push({
     test: /\.jsx$/,
     exclude: /node_modules/,
     loaders: ['react-hot', 'babel-loader?optional=runtime']
-  })
+  });
 }
 
-var envPluginString = isProduction ? '"production"' : '"development"'
+var envPluginString = isProduction ? '"production"' : '"development"';
 
 var plugins = [
   new webpack.ProvidePlugin({
@@ -75,7 +75,7 @@ var plugins = [
   new ExtractTextPlugin('styles.css'),
   new webpack.NoErrorsPlugin(),
   new webpack.DefinePlugin({ 'process.env.NODE_ENV': envPluginString })
-]
+];
 
 module.exports = {
   entry: {
@@ -106,4 +106,4 @@ module.exports = {
     inline: true
   },
   plugins: plugins
-}
+};

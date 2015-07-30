@@ -1,9 +1,9 @@
-import isProduction from './isProduction.js'
+import isProduction from './isProduction.js';
 
 export default function() {
-  let extraProperties = 'reject'
+  let extraProperties = 'reject';
   if (isProduction()) {
-    extraProperties = 'ignore'
+    extraProperties = 'ignore';
   }
 
   return extraProperties;

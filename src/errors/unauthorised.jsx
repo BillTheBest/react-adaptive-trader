@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 export default class Unauthorised extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {
-    return 'Unauthorised'
+    return 'Unauthorised';
   }
 }

@@ -1,5 +1,5 @@
-import React from 'react'
-import './blotter.less'
+import React from 'react';
+import './blotter.less';
 
 export default class BlotterRow extends React.Component {
   constructor(props) {
@@ -7,9 +7,9 @@ export default class BlotterRow extends React.Component {
   }
 
   render() {
-	var decoration = this.props.row.tradeStatus === 'rejected' ? 'line-through' : ''
-	var left = { textAlign: 'left', padding: '2px 10px', textDecoration: decoration }
-	var right = {fontWeight: 700, textAlign: 'right', padding: '2px 10px', textDecoration: decoration}
+	let decoration = this.props.row.tradeStatus === 'rejected' ? 'line-through' : '';
+	let left = { textAlign: 'left', padding: '2px 10px', textDecoration: decoration };
+	let right = {fontWeight: 700, textAlign: 'right', padding: '2px 10px', textDecoration: decoration};
 	return (
 		<tr style={{borderBottom: '1px dashed #E8E9EA'}} key={this.props.row.tradeId}>
 			<td width='200px' style={left}>{this.props.row.tradeId}</td>
@@ -27,4 +27,4 @@ export default class BlotterRow extends React.Component {
 
 BlotterRow.propTypes = {
   row: React.PropTypes.object.isRequired
-}
+};

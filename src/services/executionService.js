@@ -1,23 +1,23 @@
-import Rx from 'rx'
-import Trade from 'model/execution/trade.js'
-import Stale from 'model/stale.js'
+import Rx from 'rx';
+import Trade from 'model/execution/trade.js';
+import Stale from 'model/stale.js';
 
 export default class ExecutionService {
   constructor(executionServiceClient, limitCheckerService) {
-      this._executionServiceClient = executionServiceClient
-      this._limitCheckerService = limitCheckerService
+      this._executionServiceClient = executionServiceClient;
+      this._limitCheckerService = limitCheckerService;
   }
 
   executeRequest(ccyPairSymbol, ccyIsoCode, direction, spotRate, valueDate, notional) {
-    var request = {
+    let request = {
       direction: direction,
       notional: notional,
       spotRate: spotRate,
       currencyPair: ccyPairSymbol,
       dealtCurrency: ccyIsoCode,
       valueDate: valueDate.toISOString()
-    }
-    console.log('executing', request)
+    };
+    console.log('executing', request);
 
     return this._limitCheckerService
       .checkLimit(request)
@@ -26,10 +26,10 @@ export default class ExecutionService {
           return this._executionServiceClient
             .executeRequest(request)
             .select(tradeDto => {
-              console.log('executed', tradeDto)
-              return new Trade(tradeDto)
+              console.log('executed', tradeDto);
+              return new Trade(tradeDto);
             })
-            .detectStale(2000, Rx.Scheduler.timeout)
+            .detectStale(2000, Rx.Scheduler.timeout);
         } else {
           var trade = new Trade({
             currencyPair: ccyPairSymbol,
@@ -38,10 +38,10 @@ export default class ExecutionService {
             direction: direction,
             notional: notional,
             spotRate: spotRate
-          })
+          });
 
-          return Rx.Observable.returnValue(new Stale(false, trade))
+          return Rx.Observable.returnValue(new Stale(false, trade));
         }
-      })
+      });
   }
 }
