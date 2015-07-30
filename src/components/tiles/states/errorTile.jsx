@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
 export default class ErrorTile extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {
@@ -15,10 +15,10 @@ export default class ErrorTile extends React.Component {
           <span style={{color:'#e8c0bb'}} className="secondary-foreground">{this.props.errorMessage}</span>
         </div>
       </div>
-    )
+    );
   }
 }
 
 ErrorTile.propTypes = {
   errorMessage: React.PropTypes.string.isRequired
-}
+};

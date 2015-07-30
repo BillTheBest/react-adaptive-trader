@@ -3,11 +3,11 @@
 //
 // Edit the switch for modules that are different from their package names.
 
-var fs = require('fs')
-var _ = require('lodash')
+var fs = require('fs');
+var _ = require('lodash');
 
-var data = fs.readFileSync('package.json', 'utf8')
-var details = JSON.parse(data)
-var dependencies = _.flatten(Object.keys(details.dependencies))
+var data = fs.readFileSync('package.json', 'utf8');
+var details = JSON.parse(data);
+var dependencies = _.flatten(Object.keys(details.dependencies));
 
-module.exports = dependencies
+module.exports = dependencies;

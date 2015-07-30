@@ -1,5 +1,5 @@
-import AmpersandState from 'ampersand-state'
-import extraProperties from 'services/extraProperties.js'
+import AmpersandState from 'ampersand-state';
+import extraProperties from 'services/extraProperties.js';
 
 export default AmpersandState.extend({
   extraProperties: extraProperties(),
@@ -19,8 +19,8 @@ export default AmpersandState.extend({
     otherCurrency: {
       deps: ['currencyPair', 'dealtCurrency'],
       fn: function() {
-        return this.currencyPair.replace(this.dealtCurrency, '')
+        return this.currencyPair.replace(this.dealtCurrency, '');
       }
     }
   }
-})
+});

@@ -1,18 +1,18 @@
-import Rx from 'rx'
-import React from 'react'
-import './blotter.less'
-import { blotterService } from 'services/index.js'
+import Rx from 'rx';
+import React from 'react';
+import './blotter.less';
+import { blotterService } from 'services/index.js';
 import BlotterRow from './blotterRow.jsx';
 
 export default class Blotter extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       isLoading: true,
       trades: []
-    }
+    };
 
-    this._blotterStream = new Rx.SingleAssignmentDisposable()
+    this._blotterStream = new Rx.SingleAssignmentDisposable();
   }
 
   componentDidMount() {
@@ -20,24 +20,24 @@ export default class Blotter extends React.Component {
       .getTradesStream()
       .take(1)
       .subscribe(trades => {
-        this.setState({isLoading: false, trades: trades})
-        this.props.loaded()
-      })
+        this.setState({isLoading: false, trades: trades});
+        this.props.loaded();
+      });
 
     let tradesStream = blotterService
       .getTradesStream()
       .skip(1)
       .subscribe(trades => {
-        this.setState({ trades: trades.concat(this.state.trades)})
-      })
+        this.setState({ trades: trades.concat(this.state.trades)});
+      });
 
     this._blotterStream.setDisposable(
       new Rx.CompositeDisposable(loadedStream, tradesStream)
-    )
+    );
   }
 
   componentWillUnmount() {
-    this._blotterStream.dispose()
+    this._blotterStream.dispose();
   }
 
   render() {
@@ -62,10 +62,10 @@ export default class Blotter extends React.Component {
           </tbody>
         </table>
       </div>
-    )
+    );
   }
 }
 
 Blotter.propTypes = {
   loaded: React.PropTypes.func.isRequired
-}
+};

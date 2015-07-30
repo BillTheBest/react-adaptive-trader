@@ -1,5 +1,5 @@
-import AmpersandState from 'ampersand-state'
-import extraProperties from 'services/extraProperties.js'
+import AmpersandState from 'ampersand-state';
+import extraProperties from 'services/extraProperties.js';
 
 export default AmpersandState.extend({
   extraProperties: extraProperties(),
@@ -7,4 +7,4 @@ export default AmpersandState.extend({
     currencyPair: { type: 'state', required: true },
     updateType: { type: 'string', required: true, values: ['add', 'remove'] }
   }
-})
+});

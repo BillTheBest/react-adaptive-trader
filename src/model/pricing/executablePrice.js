@@ -1,5 +1,5 @@
-import AmpersandState from 'ampersand-state'
-import extraProperties from 'services/extraProperties.js'
+import AmpersandState from 'ampersand-state';
+import extraProperties from 'services/extraProperties.js';
 
 export default AmpersandState.extend({
   extraProperties: extraProperties(),
@@ -11,4 +11,4 @@ export default AmpersandState.extend({
   // execute: (notional, dealtCurrency) => {
   //   return executionRepository.executeRequest(this, notional, dealtCurrency)
   // }
-})
+});

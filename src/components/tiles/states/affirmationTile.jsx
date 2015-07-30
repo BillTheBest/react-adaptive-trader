@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
 export default class AffirmationTile extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {
@@ -35,11 +35,11 @@ export default class AffirmationTile extends React.Component {
           <a onClick={this.props.done} className='done-link'>Done</a>
         </div>
       </div>
-    )
+    );
   }
 }
 
 AffirmationTile.propTypes = {
   tradeDetails: React.PropTypes.object.isRequired,
   done: React.PropTypes.func.isRequired
-}
+};

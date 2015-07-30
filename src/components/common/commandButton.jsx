@@ -1,23 +1,24 @@
-import React from 'react'
+import React from 'react';
 import Bootstrap from 'react-bootstrap'
-import classNames from 'classnames'
+import classnames from 'classnames';
 
 export default class CommandButton extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {
     var visibility = this.props.isBusy ? {} : {className: 'hide'}
-    var result = classNames(visibility, 'glyphicon glyphicon-refresh') 
+    var result = classnames(visibility, 'glyphicon glyphicon-refresh') 
     return (
       <Bootstrap.Button
         bsStyle='primary'
         disabled={!this.props.canExecute || this.props.isBusy}
         onClick={() => this.props.execute()} {...this.props}>
         {this.props.children}
-        <span className={result} style={{marginLeft: '5px'}}
-      </Bootstrap.Button>
+        >
+          <span className={result} style={{marginLeft: '5px'}}
+        </Bootstrap.Button>
     )
   }
 }

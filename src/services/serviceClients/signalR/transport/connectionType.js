@@ -4,4 +4,4 @@ export default {
   ServerSentEvents: 'ServerSentEvents',
   LongPolling: 'LongPolling',
   None: 'None'
-}
+};

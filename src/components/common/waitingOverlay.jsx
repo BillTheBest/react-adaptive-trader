@@ -1,10 +1,10 @@
-import React from 'react'
-import {HorizontallyCentered, VerticallyCentered} from './layout.jsx'
-import './waitingOverlay.less'
+import React from 'react';
+import {HorizontallyCentered, VerticallyCentered} from './layout.jsx';
+import './waitingOverlay.less';
 
 export default class WaitingOverlay extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {
@@ -18,6 +18,6 @@ export default class WaitingOverlay extends React.Component {
           </HorizontallyCentered>
         </div>
       </div>
-    )
+    );
   }
 }

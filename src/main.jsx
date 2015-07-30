@@ -1,35 +1,35 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import WaitingOverlay from 'components/common/waitingOverlay.jsx'
-import { Layout } from 'lib/react-flex-layout.min.js'
+import React from 'react';
+import WaitingOverlay from 'components/common/waitingOverlay.jsx';
+import { Layout } from 'lib/react-flex-layout.min.js';
 
-import './main.less'
+import './main.less';
 
-import Analytics from 'components/analytics/analytics.jsx'
-import Tiles from 'components/tiles/spotTiles.jsx'
-import Blotter from 'components/blotter/blotter.jsx'
+import Analytics from 'components/analytics/analytics.jsx';
+import Tiles from 'components/tiles/spotTiles.jsx';
+import Blotter from 'components/blotter/blotter.jsx';
 
 export default class Main extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       isBlotterLoading: true,
       isTilesLoading: true,
       isAnalyticsLoading: true
-    }
+    };
   }
 
   isLoading() {
     return this.state.isBlotterLoading ||
            this.state.isTilesLoading ||
-           this.state.isAnalyticsLoading
+           this.state.isAnalyticsLoading;
   }
 
   render() {
-    let waitingOverlay
+    let waitingOverlay;
     if (this.isLoading()) {
-      waitingOverlay = <WaitingOverlay />
+      waitingOverlay = <WaitingOverlay />;
     }
     return (
       <div>
@@ -48,6 +48,6 @@ export default class Main extends React.Component {
         </Layout>
         {waitingOverlay}
       </div>
-    )
+    );
   }
 }
