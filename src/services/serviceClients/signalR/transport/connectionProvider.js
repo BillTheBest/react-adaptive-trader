@@ -1,7 +1,7 @@
 import Rx from 'rx';
 import Connection from 'connection.js';
 
-class ConnectionProvider {
+export default class ConnectionProvider {
 
   constructor(username, servers) {
     this._disposable = new Rx.SingleAssignmentDisposable();

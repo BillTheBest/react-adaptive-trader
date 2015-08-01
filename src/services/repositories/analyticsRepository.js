@@ -1,3 +1,7 @@
+import CurrencyPairPosition from 'model/analytics/currencyPairPosition.js';
+import HistoricPosition from 'model/analytics/historicPosition.js';
+import PositionUpdates from 'model/analytics/positionUpdates.js';
+
 export class AnalyticsRepository {
 
     constructor(analyticsServiceClient) {

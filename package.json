@@ -8,17 +8,18 @@
     "prod": "SET NODE_ENV=production webpack-dev-server --progress --colors --hot -p",
     "build:dev": "webpack --debug --devtool inline-source-map",
     "build:prod": "SET NODE_ENV=production && webpack -p",
-    "test": "karma start --autowatch --no-single-run"
+    "test": "karma start --autowatch --no-single-run",
+    "lint": "eslint src"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^5.2.3",
-    "babel-eslint": "^3.1.6",
+    "babel-eslint": "^4.0.5",
     "babel-loader": "^5.0.0",
     "babel-runtime": "^5.2.3",
     "css-loader": "^0.12.0",
-    "eslint": "^0.21.1",
+    "eslint": "^0.24.1",
     "eslint-plugin-react": "^2.2.0",
     "expect": "^1.6.0",
     "extract-text-webpack-plugin": "^0.8.0",
